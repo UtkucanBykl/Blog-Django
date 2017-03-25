@@ -1,0 +1,30 @@
+{% extends 'article/base.html' %}
+
+{% block title %}{{article.title}}{% endblock %}
+{% block body %}
+
+<div class="container">
+  <div class="page-header">
+<h1>{{article.title}}</h1>
+      <small>{{article.genre}}</small><br>
+
+{% if error_message %}
+    <p><strong>{{error_message}}</strong></p>
+{%endif%}
+
+  <p>{{article.pk}}
+      {{article.body}}
+  </p>
+  </div>
+</div>
+<div>
+
+
+
+<a class="btn btn-default" href="{% url 'articles:add_comment_to_post' pk=3%}">Add comment</a>
+
+
+</div>
+</form>
+
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'article/base.html' %}
+{% block title %}Add New Aricle{% endblock %}
+{% block article_active %}active{% endblock %}
+
+{%block body %}
+                    {% if user.is_authenticated %}
+
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="com-sm-12 col-md-7">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% include 'article/form-template.html' %}
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+{% else %}
+<script type="text/javascript">
+    window.location = {% url  'articles:index' %}
+
+</script>
+{% endif %}
+{% endblock %}

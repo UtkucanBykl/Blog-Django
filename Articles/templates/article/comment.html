@@ -1,0 +1,15 @@
+{% extends 'article/base.html' %}
+{% block title %}Add New Aricle{% endblock %}
+{% block article_active %}active{% endblock %}
+
+{%block body %}
+                    {% if user.is_authenticated %}
+
+
+{% else %}
+<script type="text/javascript">
+    window.location = {% url  'articles:index' %}
+
+</script>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Ana Sayfa {% endblock %}</title>
+    {% load staticfiles %}
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+<link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Baloo+Bhaina" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+
+            </button>
+            <a class="navbar-brand" href="{% url 'articles:index' %}">Utkucan</a>
+        </div>
+
+        <!-- İtems -->
+        <div class="collapse navbar-collapse" id="topNavBar">
+            <ul class="nav navbar-nav">
+                <li class="">
+                    <a href="{% url 'articles:index' %}" id="navbar">
+                        <span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span>&nbsp;
+                        Article
+                    </a>
+                </li>
+
+                                {% if user.is_authenticated %}
+
+                <li class="">
+
+                    <a href="{% url 'articles:article-add'%}">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; Add Article
+                    </a>
+                </li>
+                {% endif %}
+
+
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class="">
+                    <a href="{% url 'articles:profile' user.id%}">
+                        <span class="glyphicon glyphicon-user"> Who Am I ? </span>
+                    </a>
+                </li>
+            </ul>
+
+
+-->
+
+        </div>
+
+
+    </div>
+</nav>
+{% block body %}
+{% endblock %}
+</body>
+</html>
