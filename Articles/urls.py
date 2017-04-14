@@ -11,12 +11,12 @@ urlpatterns=[
     #detail
     url(r'^(?P<pk>[0-9]+)/$', views.DetailView.as_view(), name="detail"),
     #add
-    url(r'/album/add/$', views.CreateArticle.as_view(), name="article-add"),
+    url(r'^album/add/$', views.CreateArticle.as_view(), name="article-add"),
     #delete
-    url(r'/article/(?P<pk>[0-9]+)/delete/$', views.DeleteArticle.as_view(), name="article-delete"),
-    #comment
-
-    url(r'^article/(?P<pk>\d+)/comment/$', views.add_comment_to_post, name='add_comment_to_post'),
-    url(r'^/(?P<pk>[0-9]+)/$', views.ProfileView.as_view(), name="profile"),
+    url(r'^article/(?P<pk>[0-9]+)/delete/$', views.DeleteArticle.as_view(), name="article-delete"),
+    #software
+    url(r"^/software$", views.SoftwareArticle.as_view(), name="software"),
+    #about
+    url(r"^/about$", views.AboutDetail.as_view(), name="about"),
 
 ]

@@ -1,40 +1,107 @@
 {% extends 'article/base.html' %}
-
+{% load static %}
 
 {% block body %}
 
-<div class="container">
-  <div class="page-header">
-<h1>Blog</h1>
+  <header class="intro-header" style="background-image: url('../../static/Articles/img/home-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h1>Utkucan Bıyıklı</h1>
+                        <hr class="small">
+                        <span class="subheading">Yazılım ve diğer şeyler</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
 {% if all_articles %}
 
-    <ul class="list-group">
         {% for article in all_articles %}
+    {% if article.publish %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-preview">
+                    <a href="{% url 'articles:detail' article.id %}">
 
-        <li class="list-group-item list-group-item-success">
-            <a href="{% url 'articles:detail' article.id %}">
-            <h1>{{article.title}}</h1></a>
-            <small>{{article.user}}</small>
-            <p>{{article.body}}</p>
-                                {% if user.is_authenticated %}
-
-              <form action="{% url 'articles:article-delete' article.id %}" method="post" style="display: inline;">
-        {% csrf_token %}
-             <input type="hidden" name="article_id" value="{{article.id}}"/>
-            <button type="submit" class="btn btn-default btn-sm">
-
-            <span class="glyphicon glyphicon-trash"></span>
-            </button>
-        </form>
-            {% endif %}
-        </li>
-
-
-        {% endfor %}
-    </ul>
-{% else %}
-    <h2>You dont have any article</h2>
+                        <h2 class="post-title">
+                            {{article.title}}
+                        </h2>
+                        <h3 class="post-body">
+                            {{article.body}}
+                        </h3>
+                    </a>
+                    <p class="post-meta">Posted by <a href="#">Utkucan Bıyıklı</a> on {{article.date}}</p>
+                </div>
+                  </div>
+        </div>
+    </div>
 {% endif %}
-  </div>
-</div>
+                {% endfor %}
+                {% endif %}
+                <!-- Pager -->
+               {% if is_paginated %}
+  <ul class="pager">
+    {% if page_obj.has_previous %}
+      <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+
+    {% endif %}
+    {% for i in paginator.page_range %}
+      {% if page_obj.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+      <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+
+    {% endif %}
+  </ul>
+{% endif %}
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="#">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted">Copyright &copy; Utkucan Bıyıklı 2017</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+
 {% endblock %}

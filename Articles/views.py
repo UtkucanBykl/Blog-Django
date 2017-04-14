@@ -1,14 +1,8 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-
-from .forms import CommentForm
-from .models import Article,UserProfile, Comment
+from django.contrib.auth.models import User
+from django.core.paginator import Paginator
+from .models import Article
 from django.shortcuts import render,redirect
-from django.contrib.auth import authenticate,login,logout,get_user_model
-from django.views.generic import View
-from django.http import Http404
 from django.shortcuts import render,get_object_or_404
-from datetime import datetime
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView,DeleteView
 from django.core.urlresolvers import reverse_lazy
@@ -16,11 +10,13 @@ from django.core.urlresolvers import reverse_lazy
 class IndexView(generic.ListView):
     template_name = "article/index.html"
     context_object_name = "all_articles"
-
+    paginate_by=4
     def get_queryset(self):
-        return Article.objects.all().order_by('id')[:5]
+        return Article.objects.order_by("-date")
 
+class AboutDetail(generic.TemplateView):
 
+    template_name = "article/about.html"
 
 class DetailView(generic.DetailView):
     model=Article
@@ -28,27 +24,22 @@ class DetailView(generic.DetailView):
 
 class CreateArticle(generic.CreateView):
     model = Article
-    fields = ["title","body","genre","user"]
-    user=UserProfile.pk
+    fields = ["title","body","genre"]
     template_name = "article/article_form.html"
 
 class DeleteArticle(generic.DeleteView):
     model = Article
     success_url = reverse_lazy("articles:index")
 
-def add_comment_to_post(request, pk):
-    article = get_object_or_404(Article, pk=pk)
-    if request.method == "POST":
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.article = article
-            comment.save()
-            return redirect('article/detail.html', pk=article.pk)
-    else:
-        form = CommentForm()
-    return render(request, 'article/detail.html', {'form': form})
+class SoftwareArticle(generic.ListView):
+    context_object_name = "software"
+    template_name = "article/softarticle.html"
+
+    def get_queryset(self):
+        return Article.objects.filter(genre__startswith="software").order_by("-date")
+
+
 
 class ProfileView(generic.DetailView):
-    model=UserProfile
+    model=User
     template_name = "article/profile.html"
