@@ -22,6 +22,21 @@
                 </div>
             </div>
         </div>
+<hr>
+<a href="{% url 'articles:add_comment' id=article.id %}">Add Comment</a>
+{% for comment in article.comments.all %}
+        {% if comment.publish %}
+
+    <div class="comment">
+        <div class="date">{{ comment.date }}</div>
+        <strong>{{ comment.name }}</strong>
+        <p>{{ comment.content }}</p>
+        {% endif %}
+    </div>
+{% empty %}
+    <p>No comments here yet :(</p>
+{% endfor %}
+
 
 
     <!-- Footer -->

@@ -18,5 +18,7 @@ urlpatterns=[
     url(r"^/software$", views.SoftwareArticle.as_view(), name="software"),
     #about
     url(r"^/about$", views.AboutDetail.as_view(), name="about"),
+    url(r'^(?P<id>[-\w]+)/comment/$', views.add_comment, name='add_comment'),
+
 
 ]

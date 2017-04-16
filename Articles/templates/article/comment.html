@@ -3,13 +3,12 @@
 {% block article_active %}active{% endblock %}
 
 {%block body %}
-                    {% if user.is_authenticated %}
+
+<h1>Add Comment</h1>
+<form method="POST">{% csrf_token %}
+    {{form.as_p}}
+    <button type="submit">Send</button>
 
 
-{% else %}
-<script type="text/javascript">
-    window.location = {% url  'articles:index' %}
-
-</script>
-{% endif %}
+</form>
 {% endblock %}

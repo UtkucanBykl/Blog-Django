@@ -17,7 +17,7 @@ class Article(models.Model):
     body=models.CharField(max_length=140)
     content=models.TextField()
     genre=models.CharField(max_length=10)
-    date=models.DateTimeField(default=datetime.datetime.now())
+    date=models.DateTimeField(auto_now_add=True)
     publish=models.BooleanField(default=False)
     def get_absolute_url(self):
 
@@ -25,3 +25,18 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title+"-"+self.body
+
+class Comment(models.Model):
+    name=models.CharField(max_length=25)
+    date=models.DateTimeField(auto_now_add=True)
+    content=models.TextField(max_length=140)
+    publish=models.BooleanField(default=False)
+
+    article=models.ForeignKey('Articles.Article',related_name="comments",on_delete=models.CASCADE)
+
+    def get_absolute_url(self):
+
+        return reverse("comment:detail",kwargs={"pk":self.pk})
+
+    def __str__(self):
+        return self.content

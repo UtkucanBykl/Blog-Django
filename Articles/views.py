@@ -1,5 +1,7 @@
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
+
+from Articles.forms import CommentForm
 from .models import Article
 from django.shortcuts import render,redirect
 from django.shortcuts import render,get_object_or_404
@@ -39,7 +41,16 @@ class SoftwareArticle(generic.ListView):
         return Article.objects.filter(genre__startswith="software").order_by("-date")
 
 
-
-class ProfileView(generic.DetailView):
-    model=User
-    template_name = "article/profile.html"
+def add_comment(request, id):
+    article = get_object_or_404(Article, id=id)
+    if request.method == "POST":
+        form = CommentForm(request.POST,instance=article)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = article
+            comment.save()
+            return redirect('article:detail', id=article.id)
+    else:
+        form = CommentForm()
+    template="article/comment.html"
+    return render(request, template, {'form': form})
