@@ -26,6 +26,9 @@ class Article(models.Model):
     def __str__(self):
         return self.title+"-"+self.body
 
+    class Meta:
+        ordering=["-date"]
+
 class Comment(models.Model):
     name=models.CharField(max_length=25)
     date=models.DateTimeField(auto_now_add=True)

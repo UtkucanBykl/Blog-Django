@@ -23,17 +23,18 @@
             </div>
         </div>
 <hr>
-<a href="{% url 'articles:add_comment' id=article.id %}">Add Comment</a>
+<a class="btn btn-default" href="{% url 'articles:add_comment' id=article.id %}">Add Comment</a>
 
 {% for comment in article.comments.all   %}
         {% if comment.publish %}
 
-    <div class="comment">
-        <div class="date">{{ comment.date }}</div>
-
-        <strong>{{ comment.name }}</strong>
-        <p>{{ comment.comment }}</p>
+    <div class="panel-danger">
+        <div class="panel-heading">{{ comment.name }}</div>
+        <div class="panel-body">
+        <strong>{{ comment.comment }}</strong>
+        <small>{{ comment.date }}</small>
         {% endif %}
+        </div>
     </div>
 {% empty %}
     <p>No comments here yet :(</p>
@@ -41,14 +42,14 @@
 
 
 
-    <!-- Footer -->
+ <!-- Footer -->
     <footer>
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <ul class="list-inline text-center">
                         <li>
-                            <a href="#">
+                            <a href="https://www.twitter.com/utkucanbykl">
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-circle fa-stack-2x"></i>
                                     <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
@@ -56,7 +57,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="https://www.facebook.com/utkucanbykl">
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-circle fa-stack-2x"></i>
                                     <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
@@ -64,7 +65,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="https://www.github.com/utkucanbykl">
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-circle fa-stack-2x"></i>
                                     <i class="fa fa-github fa-stack-1x fa-inverse"></i>
@@ -72,7 +73,7 @@
                             </a>
                         </li>
                     </ul>
-                    <p class="copyright text-muted">Copyright &copy; Utkucan Bıyıklı 2017</p>
+                    <p class="copyright text-muted">Copyright &copy; Your Website 2016</p>
                 </div>
             </div>
         </div>

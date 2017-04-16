@@ -49,18 +49,11 @@
                     <li>
                         <a href="{% url 'articles:index' %}">Home</a>
                     </li>
-                    <li>
-                        <a href="{% url 'articles:index' %}">About</a>
-                    </li>
+
                     <li>
                         <a href="{% url 'articles:software' %}">Software</a>
                     </li>
-                    {% if user.is_authenticated %}
 
-                    <li>
-                        <a href="{% url 'articles:article-add' %}">Add</a>
-                    </li>
-                    {% endif %}
                     <li>
                         <a href="{% url 'articles:about' %}">About</a>
                     </li>
@@ -70,6 +63,8 @@
         </div>
         <!-- /.container -->
     </nav>
+
+
 
 {% block body %}
 {% endblock %}

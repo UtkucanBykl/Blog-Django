@@ -4,11 +4,25 @@
 
 {%block body %}
 
-<h1>Add Comment</h1>
-<form method="POST">{% csrf_token %}
+ <div class="row" style="margin-top:5%">
+
+        <div class="com-sm-12 col-md-7">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">{% csrf_token %}
     {{form.as_p}}
-    <button type="submit">Send</button>
+                         <div class="form-group">
+                             <script src='https://www.google.com/recaptcha/api.js'></script>
+    <div class="g-recaptcha" data-sitekey="6Lf_Th0UAAAAABMe0C83NGDVRpID5RqVwY41_swB"></div>
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+                        </div>
 
+                    </form>
+                </div>
+            </div>
+        </div>
+ </div>
 
-</form>
 {% endblock %}
