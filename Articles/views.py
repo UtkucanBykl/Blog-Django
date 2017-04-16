@@ -25,6 +25,7 @@ class DetailView(generic.DetailView):
     model=Article
     template_name = "article/detail.html"
 
+
 class CreateArticle(generic.CreateView):
     model = Article
     fields = ["title","body","genre"]

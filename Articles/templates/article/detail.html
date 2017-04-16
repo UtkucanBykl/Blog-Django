@@ -25,7 +25,7 @@
 <hr>
 <a href="{% url 'articles:add_comment' id=article.id %}">Add Comment</a>
 
-{% for comment in article.comments.all %}
+{% for comment in article.comments.all   %}
         {% if comment.publish %}
 
     <div class="comment">
