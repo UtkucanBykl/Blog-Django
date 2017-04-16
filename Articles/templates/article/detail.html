@@ -24,13 +24,15 @@
         </div>
 <hr>
 <a href="{% url 'articles:add_comment' id=article.id %}">Add Comment</a>
+
 {% for comment in article.comments.all %}
         {% if comment.publish %}
 
     <div class="comment">
         <div class="date">{{ comment.date }}</div>
+
         <strong>{{ comment.name }}</strong>
-        <p>{{ comment.content }}</p>
+        <p>{{ comment.comment }}</p>
         {% endif %}
     </div>
 {% empty %}

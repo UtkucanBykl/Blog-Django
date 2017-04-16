@@ -29,7 +29,7 @@ class Article(models.Model):
 class Comment(models.Model):
     name=models.CharField(max_length=25)
     date=models.DateTimeField(auto_now_add=True)
-    content=models.TextField(max_length=140)
+    comment=models.TextField(max_length=140)
     publish=models.BooleanField(default=False)
 
     article=models.ForeignKey('Articles.Article',related_name="comments",on_delete=models.CASCADE)
@@ -39,4 +39,4 @@ class Comment(models.Model):
         return reverse("comment:detail",kwargs={"pk":self.pk})
 
     def __str__(self):
-        return self.content
+        return self.comment
