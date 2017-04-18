@@ -24,5 +24,6 @@ from django.conf.urls.static import static
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r"^article", include("Articles.urls")),
+    url(r'^markdownx/', include('markdownx.urls')),
 
 ]

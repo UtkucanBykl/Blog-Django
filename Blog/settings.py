@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "Articles",
+    'pagedown',
+
 ]
 
 MIDDLEWARE = [
@@ -120,4 +122,8 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 GOOGLE_RECAPTCHA_SECRET_KEY = '6Lf_Th0UAAAAANpv36Z_xiHlhe7fs-hgjYBmxMV7'
+
+
+
+
 

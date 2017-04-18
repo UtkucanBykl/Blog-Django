@@ -30,6 +30,19 @@
     <script src="{% static 'Articles/js/jqBootstrapValidation.js' %}"></script>
     <script src="{% static 'Articles/js/contact_me.js' %}"></script>
         <script src="{% static 'Articles/js/clean-blog.min.js' %}"></script>
+        <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $(".content-markdown").each(function(){
+        var content = $(this).text()
+        content.trim()
+        console.log(content)
+        var markedContent=marked(content)
+        console.log(markedContent)
+        $(this).html(markedContent)
+        })
+        })
+    </script>
 
 </head>
 <body>  <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
