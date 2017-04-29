@@ -23,7 +23,7 @@ class Article(models.Model):
 
         return reverse("article:detail",kwargs={"pk":self.pk})
 
-    def __str__(self):
+    def __unicode__(self):
         return self.title+"-"+self.body
 
     class Meta:
@@ -41,7 +41,7 @@ class Comment(models.Model):
 
         return reverse("comment:detail",kwargs={"pk":self.pk})
 
-    def __str__(self):
+    def __unicode__(self):
         return self.comment
 
     class Meta:
