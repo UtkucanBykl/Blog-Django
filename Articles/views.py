@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.core.checks import messages
 from django.core.paginator import Paginator
 
-from Articles.forms import CommentForm
+from Articles.forms import CommentForm, ComForm
 from Blog import settings
 from .models import Article, Comment
 from django.shortcuts import render,redirect
@@ -44,7 +44,7 @@ class DeleteArticle(generic.DeleteView):
 class SoftwareArticle(generic.ListView):
     context_object_name = "software"
     template_name = "article/softarticle.html"
-
+    paginate_by=4
     def get_queryset(self):
         return Article.objects.filter(genre__startswith="software").order_by("-date")
 
@@ -79,4 +79,5 @@ def add_comment(request, id):
         form = CommentForm()
     template="article/comment.html"
     return render(request, template, {'form': form})
+
 

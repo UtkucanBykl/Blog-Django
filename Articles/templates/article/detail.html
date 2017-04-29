@@ -23,23 +23,20 @@
             </div>
         </div>
 <hr>
-<a class="btn btn-default" href="{% url 'articles:add_comment' id=article.id %}">Add Comment</a>
-
+<div class="row" style="margin-left:30%;">
 {% for comment in article.comments.all   %}
         {% if comment.publish %}
-
-    <div class="panel-danger">
-        <div class="panel-heading">{{ comment.name }}</div>
-        <div class="panel-body">
-        <strong>{{ comment.comment }}</strong>
-        <small>{{ comment.date }}</small>
+                    <h3><i class="fa fa-comment"></i>{{comment.name}}:
+                    <small>{{comment.date}}</small>
+                </h3>
+                <p>{{comment.comment}}</p>
         {% endif %}
-        </div>
-    </div>
-{% empty %}
+    {% empty %}
     <p>No comments here yet :(</p>
 {% endfor %}
+    <a class="btn btn-default" href="{% url 'articles:add_comment' id=article.id %}">Add Comment</a>
 
+</div>
 
 
  <!-- Footer -->

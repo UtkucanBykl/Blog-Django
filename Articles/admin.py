@@ -1,8 +1,9 @@
 from django.contrib import admin
 from django.db import models
+from django_markdown.admin import MarkdownModelAdmin
 
 from .models import Article, Comment
-from pagedown.widgets import AdminPagedownWidget
+from markdownx.widgets import AdminMarkdownxWidget
 
 
 # Register your models here.
@@ -14,15 +15,10 @@ class PostAdmin(admin.ModelAdmin):
     search_fields = ["title"]
     class Meta:
         model=Article
-
-
-
-
-class AlbumAdmin(admin.ModelAdmin):
+class MyModelAdmin(admin.ModelAdmin):
     formfield_overrides = {
-        models.TextField: {'widget': AdminPagedownWidget },
+        models.TextField: {'widget': AdminMarkdownxWidget},
     }
 
-
-admin.site.register(Article,AlbumAdmin)
+admin.site.register(Article,MyModelAdmin)
 admin.site.register(Comment)

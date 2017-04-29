@@ -15,10 +15,10 @@ urlpatterns=[
     #delete
     url(r'^article/(?P<pk>[0-9]+)/delete/$', views.DeleteArticle.as_view(), name="article-delete"),
     #software
-    url(r"^/software$", views.SoftwareArticle.as_view(), name="software"),
+    url(r"^software$", views.SoftwareArticle.as_view(), name="software"),
     #about
-    url(r"^/about$", views.AboutDetail.as_view(), name="about"),
+    url(r"^about$", views.AboutDetail.as_view(), name="about"),
+    #comment
     url(r'^(?P<id>[-\w]+)/comment/$', views.add_comment, name='add_comment'),
-
 
 ]
