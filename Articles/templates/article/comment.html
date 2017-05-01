@@ -3,6 +3,7 @@
 {% block article_active %}active{% endblock %}
 
 {%block body %}
+<div class="container">
 
  <div class="row" style="margin-top:5%">
 
@@ -10,8 +11,16 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">{% csrf_token %}
-    {{form.as_p}}
-                         <div class="form-group">
+
+            		    	  	<div class="form-group">
+                                    <label>Name</label>
+                            {{form.name}}
+                        </div>
+                        			    	  	<div class="form-group">
+                        <label class="label">Comment</label>
+                        {{form.comment}}
+                                                </div>
+                        <div class="form-group">
                              <script src='https://www.google.com/recaptcha/api.js'></script>
     <div class="g-recaptcha" data-sitekey="6Lf_Th0UAAAAABMe0C83NGDVRpID5RqVwY41_swB"></div>
                             <div class="col-sm-offset-2 col-sm-10">
@@ -24,5 +33,6 @@
             </div>
         </div>
  </div>
+</div>
 
 {% endblock %}

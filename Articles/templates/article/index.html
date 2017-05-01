@@ -3,7 +3,7 @@
 
 {% block body %}
 
-  <header class="intro-header" style="background-image: url('../../static/Articles/img/home-bg.jpg')">
+  <header class="intro-header" style="background-image: url('../../static/Articles/img/d.jpg')">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -35,7 +35,7 @@
                             {{article.body}}
                         </h3>
                     </a>
-                    <p class="post-meta">Posted by <a href="#">Utkucan Bıyıklı</a> on {{article.date}}</p>
+                    <p class="post-meta">Posted by <a href="{% url 'articles:about' %}">Utkucan Bıyıklı</a> on {{article.date}}</p>
                 </div>
                   </div>
         </div>

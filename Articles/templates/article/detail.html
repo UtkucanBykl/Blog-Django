@@ -2,13 +2,13 @@
 
 {% block title %}{{article.title}}{% endblock %}
 {% block body %}
-  <header class="intro-header" style="background-image: url('../../static/Articles/img/post-bg.jpg')">
+  <header class="intro-header" style="background-image: url('../../static/Articles/img/contact-bg.jpg')">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
                         <h1>{{article.title}}</h1>
-                        <span class="meta">Posted by <a href="#">Utkucan Bıyıklı</a> on August 24, 2014</span>
+                        <span class="meta">Posted by <a href="{% url 'articles:about' %}">Utkucan Bıyıklı</a> on August 24, 2014</span>
                     </div>
                 </div>
             </div>
