@@ -16,6 +16,7 @@ class Article(models.Model):
     title=models.CharField(max_length=25)
     body=models.CharField(max_length=140)
     content=models.TextField()
+    like=models.IntegerField(default=0)
     genre=models.CharField(max_length=10)
     date=models.DateTimeField(auto_now_add=True)
     publish=models.BooleanField(default=False)
@@ -34,7 +35,6 @@ class Comment(models.Model):
     date=models.DateTimeField(auto_now_add=True)
     comment=models.TextField(max_length=140)
     publish=models.BooleanField(default=False)
-
     article=models.ForeignKey('Articles.Article',related_name="comments",on_delete=models.CASCADE)
 
     def get_absolute_url(self):

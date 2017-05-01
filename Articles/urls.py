@@ -20,5 +20,7 @@ urlpatterns=[
     url(r"^about$", views.AboutDetail.as_view(), name="about"),
     #comment
     url(r'^(?P<id>[-\w]+)/comment/$', views.add_comment, name='add_comment'),
+    #like
+    url(r'^(?P<id>[-\w]+)/like/$', views.like, name='like'),
 
 ]

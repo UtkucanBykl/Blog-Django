@@ -10,7 +10,5 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ('name', 'comment')
 
-class ComForm(forms.Form):
-    name=forms.CharField(max_length=20)
-    comment=forms.CharField(max_length=140)
+
 

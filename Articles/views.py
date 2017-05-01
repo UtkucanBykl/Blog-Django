@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.core.checks import messages
 from django.core.paginator import Paginator
 
-from Articles.forms import CommentForm, ComForm
+from Articles.forms import CommentForm
 from Blog import settings
 from .models import Article, Comment
 from django.shortcuts import render,redirect
@@ -80,4 +80,9 @@ def add_comment(request, id):
     template="article/comment.html"
     return render(request, template, {'form': form})
 
+def like(request,id):
+    article=get_object_or_404(Article,id=id)
+    article.like+=1
+    article.save()
+    return render(request,'article/detail.html',{'article':article})
 

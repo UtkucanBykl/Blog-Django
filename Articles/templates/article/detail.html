@@ -22,10 +22,13 @@
 
 <p class="content-markdown">{{article.content|safe}}</p>
                         {% endautoescape %}
-
-                </div>
+                          </div>
             </div>
         </div>
+<hr>
+               <p style="margin-left:30%;">
+                   Bu makale {{article.like}} kere beğenilmiş.Beğenmek için kalbe tıkla :).<a href="{% url 'articles:like' article.id%}"><span class="glyphicon glyphicon-heart"></span></a>
+               </p>
 <hr>
 <div class="row" style="margin-left:30%;">
 {% for comment in article.comments.all   %}
