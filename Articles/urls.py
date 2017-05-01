@@ -22,5 +22,7 @@ urlpatterns=[
     url(r'^(?P<id>[-\w]+)/comment/$', views.add_comment, name='add_comment'),
     #like
     url(r'^(?P<id>[-\w]+)/like/$', views.like, name='like'),
+    #search
+    url(r"^search$", views.search_titles,name="search"),
 
 ]

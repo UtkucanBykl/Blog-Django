@@ -2,10 +2,9 @@ import json
 import urllib
 import urllib2
 
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.core.checks import messages
-from django.core.paginator import Paginator
+from django.utils.datastructures import MultiValueDictKeyError
+from django.views.decorators.cache import cache_page
 
 from Articles.forms import CommentForm
 from Blog import settings
@@ -16,6 +15,7 @@ from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView,DeleteView
 from django.core.urlresolvers import reverse_lazy
 # Create your views here.
+
 class IndexView(generic.ListView):
     template_name = "article/index.html"
     context_object_name = "all_articles"
@@ -85,4 +85,20 @@ def like(request,id):
     article.like+=1
     article.save()
     return render(request,'article/detail.html',{'article':article})
+
+def search_titles(request):
+    if request.method=="POST":
+        try:
+            search_text = request.POST['search']
+        except MultiValueDictKeyError:
+            search_text = False
+    else:
+        search_text=""
+    articles=Article.objects.filter(title__contains=search_text)
+    return render(request,"article/search.html",{"articles":articles,"search":search_text})
+
+
+
+
+
 

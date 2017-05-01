@@ -70,6 +70,14 @@
                     <li>
                         <a href="{% url 'articles:about' %}">About</a>
                     </li>
+                    <li>
+                        <form method="post" action="{% url 'articles:search' %}">
+                        {% csrf_token %}
+                        <input type="text" id="search" name="search">
+                        <button type="submit">Search</button>
+                        </form>
+
+                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

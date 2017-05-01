@@ -1,0 +1,83 @@
+{% extends 'article/base.html' %}
+{% load static %}
+
+{% block body %}
+ <header class="intro-header" style="background-image: url('../../static/Articles/img/d.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h1>Utkucan Bıyıklı</h1>
+                        <hr class="small">
+                        <span class="subheading">Yazılım ve diğer şeyler</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+<h1>Aradığınız kelime :{{search}} Bulunan Sonuç :{{articles.count}}</h1>
+{% if articles %}
+{% for article in articles %}
+ {% if article.publish %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-preview">
+                    <a href="{% url 'articles:detail' article.id %}">
+
+                        <h2 class="post-title">
+                            {{article.title}}
+                        </h2>
+                        <h3 class="post-body">
+                            {{article.body}}
+                        </h3>
+                    </a>
+                    <p class="post-meta">Posted by <a href="{% url 'articles:about' %}">Utkucan Bıyıklı</a> on {{article.date}}</p>
+                </div>
+                  </div>
+        </div>
+    </div>
+{% endif %}
+                {% endfor %}
+                {% endif %}
+
+
+
+  <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="https://www.twitter.com/utkucanbykl">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.facebook.com/utkucanbykl">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.github.com/utkucanbykl">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted">Copyright &copy; Your Website 2016</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+{% endblock %}
