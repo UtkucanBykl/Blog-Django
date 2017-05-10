@@ -13,8 +13,8 @@ import datetime
 
 
 class Article(models.Model):
-    title=models.CharField(max_length=25)
-    body=models.CharField(max_length=140)
+    title=models.CharField(max_length=25,unique=True)
+    body=models.CharField(max_length=140,unique=True)
     content=models.TextField()
     like=models.IntegerField(default=0)
     genre=models.CharField(max_length=10)
@@ -29,6 +29,7 @@ class Article(models.Model):
 
     class Meta:
         ordering=["-date"]
+
 
 class Comment(models.Model):
     name=models.CharField(max_length=25)

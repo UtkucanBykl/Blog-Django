@@ -14,6 +14,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src='https://www.google.com/recaptcha/api.js'></script>
     <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Baloo+Bhaina" rel="stylesheet">
       <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -31,18 +32,7 @@
     <script src="{% static 'Articles/js/contact_me.js' %}"></script>
         <script src="{% static 'Articles/js/clean-blog.min.js' %}"></script>
         <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript">
-    $(document).ready(function(){
-        $(".content-markdown").each(function(){
-        var content = $(this).text()
-        content.trim()
-        console.log(content)
-        var markedContent=marked(content)
-        console.log(markedContent)
-        $(this).html(markedContent)
-        })
-        })
-    </script>
+
 
 </head>
 <body>  <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
@@ -71,12 +61,13 @@
                         <a href="{% url 'articles:about' %}">About</a>
                     </li>
                     <li>
-                        <form method="post" action="{% url 'articles:search' %}">
+                        <form method="post" class="navbar-form navbar-left" action="{% url 'articles:search'  %}">
                         {% csrf_token %}
-                        <input type="text" id="search" name="search">
-                        <button type="submit">Search</button>
+                                            <div class="form-group">
+                    <input type="text" class="form-control" name="search" value="" id="search">
+                                            </div>
+                        <button type="submit" class="btn btn-sm btn-default">Search</button>
                         </form>
-
                     </li>
                 </ul>
             </div>

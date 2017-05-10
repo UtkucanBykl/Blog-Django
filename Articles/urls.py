@@ -9,7 +9,7 @@ urlpatterns=[
     #index
     url(r"^$", views.IndexView.as_view(), name="index"),
     #detail
-    url(r'^(?P<pk>[0-9]+)/$', views.DetailView.as_view(), name="detail"),
+    url(r'^(?P<id>[0-9]+)/$', views.add_comment, name="detail"),
     #add
     url(r'^album/add/$', views.CreateArticle.as_view(), name="article-add"),
     #delete
@@ -18,11 +18,9 @@ urlpatterns=[
     url(r"^software$", views.SoftwareArticle.as_view(), name="software"),
     #about
     url(r"^about$", views.AboutDetail.as_view(), name="about"),
-    #comment
-    url(r'^(?P<id>[-\w]+)/comment/$', views.add_comment, name='add_comment'),
     #like
     url(r'^(?P<id>[-\w]+)/like/$', views.like, name='like'),
     #search
-    url(r"^search$", views.search_titles,name="search"),
+    url(r"^search/$", views.search_titles,name="search"),
 
 ]
