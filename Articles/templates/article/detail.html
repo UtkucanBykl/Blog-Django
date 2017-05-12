@@ -8,7 +8,7 @@
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
                         <h1>{{article.title}}</h1>
-                        <span class="meta">Posted by <a href="{% url 'articles:about' %}">Utkucan Bıyıklı</a> on August 24, 2014</span>
+                        <span class="meta">Posted by <a href="{% url 'articles:about' %}">Utkucan Bıyıklı</a> on {{article.date}}</span>
                     </div>
                 </div>
             </div>
@@ -34,7 +34,7 @@
 {% for comment in comments   %}
 
 
-                    <h3><i class="fa fa-comment"></i>{{comment.name}}:
+                    <h3><i class="glyphicon glyphicon-pencil"></i>{{comment.name}}:
                     <small>{{comment.date}}</small>
                 </h3>
                 <p>{{comment.comment}}</p>
@@ -50,11 +50,12 @@
 
 <h3 style="margin-bottom: 25px; text-align: center;">Yorum At </h3>
     				<div class="form-group">
-                        {{form.name}}
+                        <label>Adınız :</label>{{form.name}}
 					</div>
 					<div class="form-group">
-                        {{form.comment}}
+                        <label>Yorum :</label>{{form.comment}}
 					</div>
+
                                                         <p class="help-block">{{error}}</p>
 
                         <div class="form-group">

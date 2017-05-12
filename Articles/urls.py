@@ -9,11 +9,8 @@ urlpatterns=[
     #index
     url(r"^$", views.IndexView.as_view(), name="index"),
     #detail
-    url(r'^(?P<id>[0-9]+)/$', views.add_comment, name="detail"),
-    #add
-    url(r'^album/add/$', views.CreateArticle.as_view(), name="article-add"),
-    #delete
-    url(r'^article/(?P<pk>[0-9]+)/delete/$', views.DeleteArticle.as_view(), name="article-delete"),
+    url(r'^(?P<id>[0-9]+)/$', views.detail, name="detail"),
+
     #software
     url(r"^software$", views.SoftwareArticle.as_view(), name="software"),
     #about

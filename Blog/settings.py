@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "Articles",
     'markdownx',
+    "rest_framework"
 
 ]
 

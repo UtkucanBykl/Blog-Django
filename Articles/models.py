@@ -25,7 +25,7 @@ class Article(models.Model):
         return reverse("article:detail",kwargs={"pk":self.pk})
 
     def __unicode__(self):
-        return self.title+"-"+self.body
+        return self.title
 
     class Meta:
         ordering=["-date"]
@@ -47,4 +47,6 @@ class Comment(models.Model):
 
     class Meta:
         ordering = ['-date']
+
+
 

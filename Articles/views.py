@@ -6,8 +6,12 @@ from django.core.checks import messages
 from django.db.models import Q
 from django.utils.datastructures import MultiValueDictKeyError
 from django.views.decorators.cache import cache_page
-
+from rest_framework import viewsets
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework import generics
 from Articles.forms import CommentForm
+from Articles.serializers import ArticleSerializer, CommentSerializer
 from Blog import settings
 from .models import Article, Comment
 from django.shortcuts import render,redirect
@@ -27,20 +31,7 @@ class AboutDetail(generic.TemplateView):
 
     template_name = "article/about.html"
 
-class DetailView(generic.DetailView):
-    model=Article
-    template_name = "article/detail.html"
 
-
-
-class CreateArticle(generic.CreateView):
-    model = Article
-    fields = ["title","body","genre"]
-    template_name = "article/article_form.html"
-
-class DeleteArticle(generic.DeleteView):
-    model = Article
-    success_url = reverse_lazy("articles:index")
 
 class SoftwareArticle(generic.ListView):
     context_object_name = "software"
@@ -50,9 +41,10 @@ class SoftwareArticle(generic.ListView):
         return Article.objects.filter(genre__startswith="software",publish=True).order_by("-date")
 
 
-def add_comment(request, id):
+def detail(request, id):
     article = get_object_or_404(Article, id=id)
     comments=Comment.objects.filter(Q(article__title__startswith=article.title),Q(publish=True))
+
     if request.method == "POST":
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -102,6 +94,20 @@ def search_titles(request):
              Article.objects.filter(body__icontains=search_text,publish=True)
     articles=articles.order_by("-date")
     return render(request,"article/search.html",{"articles":articles,"search":search_text})
+
+
+
+
+class CommentList(viewsets.ModelViewSet):
+
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+
+class ArticleViewSet(viewsets.ModelViewSet):
+    queryset = Article.objects.all()
+    serializer_class = ArticleSerializer
+
+
 
 
 
