@@ -2,23 +2,19 @@ import json
 import urllib
 import urllib2
 
-from django.core.checks import messages
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.utils.datastructures import MultiValueDictKeyError
-from django.views.decorators.cache import cache_page
 from rest_framework import viewsets
 from rest_framework.response import Response
-from rest_framework.views import APIView
 from rest_framework import generics
 from Articles.forms import CommentForm
 from Articles.serializers import ArticleSerializer, CommentSerializer
 from Blog import settings
 from .models import Article, Comment
-from django.shortcuts import render,redirect
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView,DeleteView
-from django.core.urlresolvers import reverse_lazy
 # Create your views here.
 class IndexView(generic.ListView):
     template_name = "article/index.html"
@@ -76,11 +72,10 @@ def detail(request, id):
 
 def like(request,id):
     article=get_object_or_404(Article,id=id)
-    comments=Comment.objects.filter(Q(article__title__startswith=article.title),Q(publish=True))
-    form = CommentForm(request.POST)
     article.like+=1
     article.save()
-    return render(request,'article/detail.html',{'article':article,'comments':comments,'form':form})
+    return redirect('articles:detail', id=article.id)
+
 
 def search_titles(request):
     if request.method=="POST":
@@ -93,15 +88,16 @@ def search_titles(request):
     articles=Article.objects.filter(title__icontains=search_text,publish=True) | \
              Article.objects.filter(body__icontains=search_text,publish=True)
     articles=articles.order_by("-date")
+    if(not articles):
+        error = "xss denemediyseniz aradiginiz sey yok"
+        return render(request, "article/search.html", {"articles": articles, "search": search_text, "error":error})
     return render(request,"article/search.html",{"articles":articles,"search":search_text})
-
-
-
 
 class CommentList(viewsets.ModelViewSet):
 
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
+
 
 class ArticleViewSet(viewsets.ModelViewSet):
     queryset = Article.objects.all()

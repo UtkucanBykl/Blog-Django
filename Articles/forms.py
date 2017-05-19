@@ -1,4 +1,4 @@
-from django.forms import forms
+from django.forms import forms, TextInput, Textarea, DateTimeInput
 from django.forms import ModelForm
 from django import forms
 
@@ -10,10 +10,16 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ('name', 'comment')
 
-        def __init__(self, *args, **kwargs):
-            super(CommentForm, self).__init__(*args, **kwargs)
-            self.fields['name'].widget.attrs.update({'class': 'form-control','id':"name"})
-            self.fields['comment'].widget.attrs.update({'class': 'form-control','id':"message"})
+    def __init__(self, *args, **kwargs):
+        super(CommentForm, self).__init__(*args, **kwargs)
+        self.fields['name'].widget = TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Name'})
+        self.fields['comment'].widget = Textarea(attrs={
+            'class': 'form-control',
+            'placeholder': 'Comment'})
+
+
 
 
 
