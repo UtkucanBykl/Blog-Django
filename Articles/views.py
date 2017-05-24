@@ -1,8 +1,6 @@
 import json
 import urllib
 import urllib2
-
-from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.utils.datastructures import MultiValueDictKeyError
 from rest_framework import viewsets
@@ -39,7 +37,10 @@ class SoftwareArticle(generic.ListView):
 
 def detail(request, id):
     article = get_object_or_404(Article, id=id)
-    comments=Comment.objects.filter(Q(article__title__startswith=article.title),Q(publish=True))
+    if(request.user.is_authenticated):
+        comments = Comment.objects.filter(Q(article__title__startswith=article.title))
+    else:
+        comments = Comment.objects.filter(Q(article__title__startswith=article.title), Q(publish=True))
 
     if request.method == "POST":
         form = CommentForm(request.POST)
@@ -64,34 +65,56 @@ def detail(request, id):
                 return redirect('articles:detail', id=article.id)
             else:
                 error="Robot olmadigina emin misin ?"
-                return render(request,"article/detail.html",{"article":article,"error":error,"form":form,"comments":comments})
+                return render(request,"article/detail.html",{
+                    "article":article,
+                    "error":error,
+                    "form":form,
+                    "comments":comments
+                })
     else:
         form = CommentForm()
-    template="article/detail.html"
-    return render(request, template, {'form': form,"article":article,"comments":comments})
+    template = "article/detail.html"
+    return render(request, template, {'form':form,
+                                      "article":article,
+                                      "comments":comments
+                                      })
 
-def like(request,id):
-    article=get_object_or_404(Article,id=id)
-    article.like+=1
+def publish(request, id):
+    if (not request.user.is_authenticated):
+        return redirect("articles:index")
+    comment = get_object_or_404(Comment, id=id)
+    if comment.publish:
+        comment.publish = False
+    else:
+        comment.publish = True
+    comment.save()
+    return redirect("articles:detail", id=comment.article.id)
+
+def like(request, id):
+    article=get_object_or_404(Article, id=id)
+    article.like+= 1
     article.save()
     return redirect('articles:detail', id=article.id)
 
 
 def search_titles(request):
-    if request.method=="POST":
+    if request.method == "POST":
         try:
             search_text = request.POST['search']
         except MultiValueDictKeyError:
             search_text = False
     else:
-        search_text=""
-    articles=Article.objects.filter(title__icontains=search_text,publish=True) | \
-             Article.objects.filter(body__icontains=search_text,publish=True)
-    articles=articles.order_by("-date")
+        search_text = ""
+    articles = Article.objects.filter(title__icontains=search_text, publish=True) | \
+             Article.objects.filter(body__icontains=search_text, publish=True)
+    articles = articles.order_by("-date")
     if(not articles):
         error = "xss denemediyseniz aradiginiz sey yok"
         return render(request, "article/search.html", {"articles": articles, "search": search_text, "error":error})
-    return render(request,"article/search.html",{"articles":articles,"search":search_text})
+    return render(request,"article/search.html", {"articles":articles, "search":search_text})
+
+
+
 
 class CommentList(viewsets.ModelViewSet):
 

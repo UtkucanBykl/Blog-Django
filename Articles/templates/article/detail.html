@@ -39,7 +39,14 @@
                     <small>{{comment.date}}</small>
                 </h3>
                 <p>{{comment.comment}}</p>
+    {% if user.is_authenticated %}
+        {% if not comment.publish %}
+    <p><i class="glyphicon glyphicon-thumbs-up"><a href="{% url 'articles:publish' comment.id %}">Publish</a></i> </p>
+        {% else %}
+    <p><i class="glyphicon glyphicon-thumbs-down"><a href="{% url 'articles:publish' comment.id %}">Remove</a></i> </p>
+        {% endif %}
 
+        {% endif %}
     {% empty %}
     <p>Henüz bir yorum atılmamış.</p>
 {% endfor %}

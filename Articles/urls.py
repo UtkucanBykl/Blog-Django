@@ -19,5 +19,7 @@ urlpatterns=[
     url(r'^(?P<id>[-\w]+)/like/$', views.like, name='like'),
     #search
     url(r"^search/$", views.search_titles,name="search"),
+    #publish
+    url(r'^(?P<id>[-\w]+)/publish/$', views.publish, name='publish'),
 
 ]
