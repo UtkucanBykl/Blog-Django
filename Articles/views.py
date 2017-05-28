@@ -4,15 +4,12 @@ import urllib2
 from django.db.models import Q
 from django.utils.datastructures import MultiValueDictKeyError
 from rest_framework import viewsets
-from rest_framework.response import Response
-from rest_framework import generics
 from Articles.forms import CommentForm
 from Articles.serializers import ArticleSerializer, CommentSerializer
 from Blog import settings
 from .models import Article, Comment
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
-from django.views.generic.edit import CreateView, UpdateView,DeleteView
 # Create your views here.
 class IndexView(generic.ListView):
     template_name = "article/index.html"
