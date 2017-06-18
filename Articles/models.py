@@ -1,11 +1,9 @@
 from __future__ import unicode_literals
 
-import datetime
+
 from django.core.urlresolvers import reverse
 from django.db import models
-from django.contrib.auth.models import User
-from django.core.paginator import Paginator
-from django.utils import timezone
+
 
 # Create your models here.
 from django.db.models import Model

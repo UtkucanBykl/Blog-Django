@@ -88,9 +88,12 @@ def publish(request, id):
     return redirect("articles:detail", id=comment.article.id)
 
 def like(request, id):
-    article=get_object_or_404(Article, id=id)
+    if (request.session.has_key(id)):
+        return redirect("articles:detail", id=id)
+    article = get_object_or_404(Article, id=id)
     article.like+= 1
     article.save()
+    request.session[id] = True
     return redirect('articles:detail', id=article.id)
 
 

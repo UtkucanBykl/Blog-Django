@@ -39,8 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "Articles",
     'markdownx',
-    "rest_framework"
-
+    "rest_framework",
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
 ]
 
 MIDDLEWARE = [
@@ -123,6 +124,8 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 GOOGLE_RECAPTCHA_SECRET_KEY = '6Lf_Th0UAAAAANpv36Z_xiHlhe7fs-hgjYBmxMV7'
+SESSION_COOKIE_AGE = 5 * 60
+
 
 
 
