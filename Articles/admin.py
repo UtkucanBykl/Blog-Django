@@ -1,9 +1,8 @@
 from django.contrib import admin
 from django.db import models
-from django_markdown.admin import MarkdownModelAdmin
+from markdownx.widgets import AdminMarkdownxWidget
 
 from .models import Article, Comment
-from markdownx.widgets import AdminMarkdownxWidget
 
 
 # Register your models here.

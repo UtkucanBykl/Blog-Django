@@ -1,13 +1,10 @@
 from __future__ import unicode_literals
 
-
 from django.core.urlresolvers import reverse
 from django.db import models
 
 
 # Create your models here.
-from django.db.models import Model
-import datetime
 
 
 class Article(models.Model):
@@ -22,7 +19,7 @@ class Article(models.Model):
 
         return reverse("article:detail",kwargs={"pk":self.pk})
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     class Meta:
@@ -40,7 +37,7 @@ class Comment(models.Model):
 
         return reverse("comment:detail",kwargs={"pk":self.pk})
 
-    def __unicode__(self):
+    def __str__(self):
         return self.comment
 
     class Meta:

@@ -1,6 +1,4 @@
-import json
-import urllib
-import urllib2
+import json, urllib, urllib.request
 from django.db.models import Q
 from django.utils.datastructures import MultiValueDictKeyError
 from rest_framework import viewsets
@@ -49,9 +47,9 @@ def detail(request, id):
                 'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
                 'response': recaptcha_response
             }
-            data = urllib.urlencode(values)
-            req = urllib2.Request(url, data)
-            response = urllib2.urlopen(req)
+            data = urllib.parse.urlencode(values)
+            req = urllib.request.Request(url, data)
+            response = urllib.request.urlopen(req)
             result = json.load(response)
             ''' End reCAPTCHA validation '''
             if result['success']:
