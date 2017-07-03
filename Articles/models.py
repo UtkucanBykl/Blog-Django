@@ -12,7 +12,7 @@ class Article(models.Model):
     body=models.CharField(max_length=140,unique=True)
     content=models.TextField()
     like=models.IntegerField(default=0)
-    genre=models.CharField(max_length=10)
+    genre=models.ForeignKey("Genre")
     date=models.DateTimeField(auto_now_add=True)
     publish=models.BooleanField(default=False)
     def get_absolute_url(self):
@@ -42,6 +42,13 @@ class Comment(models.Model):
 
     class Meta:
         ordering = ['-date']
+
+
+class Genre(models.Model):
+    name = models.CharField(max_length=40)
+
+    def __str__(self):
+        return self.name
 
 
 

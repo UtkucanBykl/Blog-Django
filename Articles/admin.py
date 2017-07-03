@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.db import models
 from markdownx.widgets import AdminMarkdownxWidget
 
-from .models import Article, Comment
+from .models import Article, Comment, Genre
 
 
 # Register your models here.
@@ -21,3 +21,4 @@ class MyModelAdmin(admin.ModelAdmin):
 
 admin.site.register(Article,MyModelAdmin)
 admin.site.register(Comment)
+admin.site.register(Genre)
