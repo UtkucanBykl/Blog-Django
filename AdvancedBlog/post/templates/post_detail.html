@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block content %}
+
+       <!-- Page Header -->
+    {% if post.image %}
+        <header class="masthead" style="background-image: url('{{ post.image.url }}')">
+    {% else %}
+    <header class="masthead" style="background-image: url({% static 'img/post-bg.jpg'%})">
+        {% endif %}
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="post-heading">
+              <h1>{{ post.title }}</h1>
+              <h2 class="subheading">{{ post.body }}</h2>
+              <span class="meta">Posted by
+                <a href="#">{{ post.user }}</a>
+                on {{ post.created_date }}<br>
+                  <p>{{ post.like }} kere beğenilmiş.<a href="{% url 'post:like' post.slug %}">Beğen</a>
+                      <a href="{% url 'post:dislike' post.slug %}">Kötü</a>
+              </span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+<!-- Post Content -->
+    <article>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+           {{ post.content }}
+            </div>
+        </div>
+      </div>
+    </article>
+    <hr>
+    <div class="container col-md-10">
+    <form action="{% url 'comment:send_comment' post.slug %}" method="post">{% csrf_token %}
+            {{ form.as_p }}
+    <button type="submit" class="btn">Gönder</button>
+    </form>
+    </div>
+{% endblock %}
