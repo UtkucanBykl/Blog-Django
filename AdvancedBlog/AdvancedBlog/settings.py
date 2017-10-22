@@ -25,7 +25,15 @@ SECRET_KEY = '75$)r3t_=1gbinkcc=wy$y*z%)^g^m&xwptz-p(zcun42v4#=('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+
+
+
+
+STATIC_URL = '//'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
 
 
 # Application definition
@@ -39,8 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "post",
     "comment",
-    'django_cleanup',
-
+	
 ]
 
 MIDDLEWARE = [
@@ -54,7 +61,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'AdvancedBlog.urls'
-
+ALLOWED_HOSTS = ['*']
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -80,8 +87,12 @@ WSGI_APPLICATION = 'AdvancedBlog.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'blog',
+        'USER': 'bloguser',
+        'PASSWORD': 'qaz.wsx123',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
