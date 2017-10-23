@@ -17,8 +17,9 @@
               <span class="meta">Posted by
                 <a href="#">{{ post.user }}</a>
                 on {{ post.created_date }}<br>
-                  <p>{{ post.like }} kere beğenilmiş.<a href="{% url 'post:like' post.slug %}">Beğen</a>
-                      <a href="{% url 'post:dislike' post.slug %}">Kötü</a>
+                  <p>{{ post.like }} kere beğenilmiş.<a href="{% url 'post:like' post.slug %}"><i class="fa fa-thumbs-up">
+                  </i></a>
+                     <a href="{% url 'post:dislike' post.slug %}"> <i class="fa fa-thumbs-down"></i></a>
               </span></p>
             </div>
           </div>
