@@ -3,6 +3,7 @@ from django.core.mail import EmailMessage
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render
 
+from django.conf import settings
 # Create your views here.
 from home.tasks import send_email
 from post.models import Post
