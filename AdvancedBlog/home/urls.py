@@ -21,5 +21,6 @@ from home import views
 urlpatterns = [
     url(r'^$', views.IndexView, name="index"),
     url(r'^about$', views.AboutView, name="about"),
+    url(r'^contact', views.ContactView, name="contact"),
 
 ]
