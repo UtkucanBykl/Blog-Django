@@ -5,11 +5,14 @@ from django.shortcuts import render
 
 from django.conf import settings
 # Create your views here.
+from django.views.decorators.cache import cache_page
+
 from home.tasks import send_email
 from post.models import Post
 
-
+@cache_page(60*15)
 def IndexView(request):
+
     posts = Post.objects.filter(status=True)
 
     page = request.GET.get('page', 1)
@@ -26,7 +29,9 @@ def IndexView(request):
 def AboutView(request):
     return render(request, "about.html")
 
+@cache_page(60)
 def ContactView(request):
+
     if request.method == "POST":
         name = request.POST.get("name")
         email = request.POST.get("email")

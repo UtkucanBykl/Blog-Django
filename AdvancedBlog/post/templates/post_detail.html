@@ -1,12 +1,13 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% block title %}{{ post.title }}{% endblock %}
 {% block content %}
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
 
        <!-- Page Header -->
     {% if post.image %}
-        <header class="masthead" style="background-image: url('{{ post.image.url }}')">
+        <header class="masthead" style="background-image: url('{{ MEDIA_ROOT }}{{ post.image.url }}')">
     {% else %}
     <header class="masthead" style="background-image: url({% static 'img/post-bg.jpg'%})">
         {% endif %}

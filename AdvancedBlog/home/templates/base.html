@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Clean Blog - Start Bootstrap Theme</title>
+    <title>{% block title %}{% endblock %} - Utkucan Bıyıklı</title>
     <!-- Latest compiled and minified CSS -->
 
     <!-- Bootstrap core CSS -->
@@ -51,7 +51,7 @@
               <a class="nav-link" href="post.html">Sample Post</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="contact.html">Contact</a>
+              <a class="nav-link" href="{% url 'home:contact' %}">Contact</a>
             </li>
 
           </ul>
