@@ -1,7 +1,0 @@
-[2017-10-20 17:34:28 +0000] [20988] [INFO] Starting gunicorn 19.4.5
-[2017-10-20 17:34:28 +0000] [20988] [INFO] Listening at: unix:/home/developer/Blog-Django/AdvancedBlog.sock (20988)
-[2017-10-20 17:34:28 +0000] [20988] [INFO] Using worker: sync
-[2017-10-20 17:34:28 +0000] [20993] [INFO] Booting worker with pid: 20993
-[2017-10-20 19:03:57 +0000] [20988] [INFO] Handling signal: term
-[2017-10-20 19:03:57 +0000] [20993] [INFO] Worker exiting (pid: 20993)
-[2017-10-20 19:03:57 +0000] [20988] [INFO] Shutting down: Master
