@@ -48,6 +48,7 @@ def allpost(request):
         posts = Post.objects.filter(title__icontains=change)[:3]
         for post in posts:
             post_json = {}
+
             post_json['title'] = post.title
             post_json["content"] = post.content
             post_json["slug"] = post.slug

@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 {% block content %}
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
 
        <!-- Page Header -->
     {% if post.image %}
@@ -38,9 +40,44 @@
     </article>
     <hr>
     <div class="container col-md-10">
+    <div id="commentBody">Yorumlar Yükeniyor</div>
+
+    </div>
+    <div class="container col-md-10">
     <form action="{% url 'comment:send_comment' post.slug %}" method="post">{% csrf_token %}
             {{ form.as_p }}
-    <button type="submit" class="btn">Gönder</button>
+    <button type="submit" id="comment-btn" class="btn">Gönder</button>
     </form>
     </div>
+    <script>
+
+        $(document).ready(function () {
+            setInterval(function () {
+            $.ajax({
+                   type: "POST",
+                    url: "{% url 'comment:post_comment' %}",
+                    data: {
+                        csrfmiddlewaretoken: '{{ csrf_token }}',
+                        post: '{{ post.slug }}'
+                    },
+                    success: function (data) {
+                        var json = JSON.parse(data);
+                        var result_html = "";
+                        $.each(json, function (i) {
+
+                            result_html += "<div><h1>"+ json[i].comment + "</h1></div>"
+                            console.log(json[i].comment)
+                        });
+                        console.log(result_html)
+                        $("#commentBody").html(result_html);
+                        $("#commentBody").show();
+                    }
+            });
+            },5000);
+
+
+        });
+
+    </script>
+
 {% endblock %}
