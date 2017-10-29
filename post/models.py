@@ -43,12 +43,11 @@ class Post(models.Model):
 class Category(models.Model):
 
     category_name = models.CharField(max_length=40)
+    popularity = models.PositiveIntegerField(default=0)
     created_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.category_name
-
-
 
 
 @receiver(post_save, sender=Post)
@@ -56,3 +55,14 @@ def update_slug(sender, **kwargs):
     if kwargs["instance"].title != kwargs["instance"].slug:
         slug = slugify(kwargs['instance'].title.replace('ı', 'i'))
         Post.objects.filter(title=kwargs['instance'].title).update(slug=slug)
+
+
+@receiver(post_save, sender=Post)
+def update_popularity(sender, **kwargs):
+    if kwargs["created"]:
+        try:
+            cat = Category.objects.get(category_name=kwargs["instance"].category.category_name)
+            cat.popularity += 1
+            cat.save()
+        except:
+            raise ValueError("Cat Does Not Exist")
