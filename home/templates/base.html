@@ -131,9 +131,7 @@
                         var json = JSON.parse(data);
                         var result_html = "";
                         $.each(json, function (i) {
-
-                            result_html += '<div style="color:red;margin-left:25%;">' + json[i].title + '</div>';
-
+                        result_html += '<div> <a href="/post/' + json[i].slug + '">' + json[i].title + "</a></div>";
                         });
                         $("#mainBody").html(result_html);
                         $("#mainBody").show();
