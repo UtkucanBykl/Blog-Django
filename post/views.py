@@ -67,7 +67,7 @@ def allpost(request):
 def deneme(request):
     if request.method == "POST":
         post_json = {}
-        slug = request.POST.get("slug")
+        slug = request.POST.get("post")
         post = get_object_or_404(Post, slug=slug)
         like_count = post.like
         post_json["like"] = like_count
