@@ -9,5 +9,6 @@ urlpatterns = [
     url(r'^like/(?P<slug>[\w-]+)$', views.LikePostView, name="like"),
     url(r'^dislike/(?P<slug>[\w-]+)$', views.DislikeView, name="dislike"),
     url(r'^post/$', views.allpost, name="allpost"),
+    url(r'^$', views.deneme, name="lcount"),
 
 ]
