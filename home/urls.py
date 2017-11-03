@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import  *
 from django.contrib import admin
 
+import post
 from home import views
 
 urlpatterns = [

@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 {% block title %}{{ post.title }}{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/loader.css' %}">
+{% endblock %}
 {% block content %}
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
 
        <!-- Page Header -->
@@ -20,9 +22,9 @@
               <span class="meta">Posted by
                 <a href="#">{{ post.user }}</a>
                 on {{ post.created_date }}<br>
-                  <p>{{ post.like }} kere beğenilmiş.<a href="{% url 'post:like' post.slug %}"><i class="fa fa-thumbs-up">
+                  <p><span id="post-like"></span> kere beğenilmiş.<a id="like"><i class="fa fa-thumbs-up">
                   </i></a>
-                     <a href="{% url 'post:dislike' post.slug %}"> <i class="fa fa-thumbs-down"></i></a>
+                     <a id="disslike" > <i class="fa fa-thumbs-down"></i></a>
               </span></p>
             </div>
           </div>
@@ -41,7 +43,10 @@
     </article>
     <hr>
     <div class="container col-md-10">
-    <div id="commentBody">Yorumlar Yükeniyor</div>
+    <div id="commentBody">
+        <div class="loader"></div>
+
+    </div>
 
     </div>
     <div class="container col-md-10">
@@ -50,7 +55,63 @@
     <button type="submit" id="comment-btn" class="btn">Gönder</button>
     </form>
     </div>
+
+{% endblock %}
+ {% block script %}
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
     <script>
+
+               $(document).ready(function () {
+             $.ajax({
+                    type: "POST",
+                    url: '{% url 'post:lcount' %}',
+                    data: {
+                        csrfmiddlewaretoken: '{{ csrf_token }}',
+                        post: '{{ post.slug }}'
+                    },
+                    success: function (data) {
+                        var json = JSON.parse(data);
+
+                        $("#post-like").text(json.like);
+                        $("#post-like").show();
+                    }
+            });
+
+        });
+
+        $(document).ready(function () {
+            $("#like").on("click" ,function () {
+
+           $.ajax({
+               type: "POST",
+               url: "{% url 'post:like' post.slug %}",
+               data: {
+                   csrfmiddlewaretoken: '{{ csrf_token }}',
+
+               },
+               success: function (data) {
+                var json = JSON.parse(data);
+                alert(json.text);
+                $.ajax({
+                    type: "POST",
+                    url: '{% url 'post:lcount' %}',
+                    data: {
+                        csrfmiddlewaretoken: '{{ csrf_token }}',
+                        post: '{{ post.slug }}'
+                    },
+                    success: function (data) {
+                        var json = JSON.parse(data);
+
+                        $("#post-like").text(json.like);
+                        $("#post-like").show();
+                    }
+            });
+
+           }
+        });
+        });
+        });
 
         $(document).ready(function () {
             setInterval(function () {
@@ -67,11 +128,10 @@
                         $.each(json, function (i) {
 
                             result_html += "<div><h1>"+ json[i].comment + "</h1></div>"
-                            console.log(json[i].comment)
                         });
-                        console.log(result_html)
                         $("#commentBody").html(result_html);
                         $("#commentBody").show();
+                        $(".loader").display = false;
                     }
             });
             },5000);
@@ -79,6 +139,8 @@
 
         });
 
-    </script>
 
+
+
+    </script>
 {% endblock %}

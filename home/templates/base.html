@@ -22,6 +22,8 @@
 
     <!-- Custom styles for this template -->
     <link href="{% static 'css/clean-blog.min.css' %}" rel="stylesheet">
+  {% block style %}
+  {% endblock %}
 
   </head>
 <body>
@@ -140,5 +142,7 @@
 
         });
     </script>
+{% block script %}
+{% endblock %}
 </body>
 </html>

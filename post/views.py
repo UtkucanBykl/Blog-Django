@@ -20,14 +20,21 @@ def PostDetailView(request, slug):
     form = CommentForm()
     return render(request, "post_detail.html", {"post":post,"form":form})
 
+
 def LikePostView(request, slug):
+    response = {}
     if (request.session.has_key(slug+"like")):
-        messages.error(request, "Daha önce oy verdin.")
-        return redirect("post:detail", slug=slug)
+        response["error"] = True
+        response["text"] = "Daha Önce Oy kullanılmış"
+        data = json.dumps(response)
+        return HttpResponse(data)
     post = get_object_or_404(Post, slug=slug)
     request.session[slug+"like"] = True
     post.like_post()
-    return redirect("post:detail", slug=slug)
+    response["error"] = False
+    response["text"] = "Oyunuz Kaydedildi"
+    data = json.dumps(response)
+    return HttpResponse(data)
 
 
 def DislikeView(request, slug):
@@ -56,3 +63,13 @@ def allpost(request):
             results.append(post_json)
     data = json.dumps(results)
     return HttpResponse(data)
+
+def deneme(request):
+    if request.method == "POST":
+        post_json = {}
+        slug = request.POST.get("post")
+        post = get_object_or_404(Post, slug=slug)
+        like_count = post.like
+        post_json["like"] = like_count
+        data = json.dumps(post_json)
+        return HttpResponse(data)
