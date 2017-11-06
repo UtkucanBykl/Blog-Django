@@ -107,8 +107,41 @@
                         $("#post-like").show();
                     }
             });
+                }
 
-           }
+        });
+        });
+        });
+
+        $(document).ready(function () {
+            $("#disslike").on("click" ,function () {
+
+           $.ajax({
+               type: "POST",
+               url: "{% url 'post:dislike' post.slug %}",
+               data: {
+                   csrfmiddlewaretoken: '{{ csrf_token }}',
+
+               },
+               success: function (data) {
+                var json = JSON.parse(data);
+                alert(json.text);
+                $.ajax({
+                    type: "POST",
+                    url: '{% url 'post:lcount' %}',
+                    data: {
+                        csrfmiddlewaretoken: '{{ csrf_token }}',
+                        post: '{{ post.slug }}'
+                    },
+                    success: function (data) {
+                        var json = JSON.parse(data);
+
+                        $("#post-like").text(json.like);
+                        $("#post-like").show();
+                    }
+            });
+                }
+
         });
         });
         });

@@ -24,7 +24,7 @@ def PostDetailView(request, slug):
 def LikePostView(request, slug):
     response = {}
     if (request.session.has_key(slug+"like")):
-        response["error"] = True
+        response["err"] = True
         response["text"] = "Daha Önce Oy kullanılmış"
         data = json.dumps(response)
         return HttpResponse(data)
@@ -38,13 +38,19 @@ def LikePostView(request, slug):
 
 
 def DislikeView(request, slug):
-    if (request.session.has_key(slug+"dislike")):
-        messages.error(request, "Daha önce oy verdin.")
-        return redirect("post:detail", slug=slug)
+    response = {}
+    if (request.session.has_key(slug+"like")):
+        response["err"] = True
+        response["text"] = "Daha Önce Oy kullanılmış"
+        data = json.dumps(response)
+        return HttpResponse(data)
     post = get_object_or_404(Post, slug=slug)
     request.session[slug+"dislike"] = True
     post.disslike_post()
-    return redirect("post:detail", slug=slug)
+    response["error"] = False
+    response["text"] = "Oyunuz Kaydedildi"
+    data = json.dumps(response)
+    return HttpResponse(data)
 
 
 
